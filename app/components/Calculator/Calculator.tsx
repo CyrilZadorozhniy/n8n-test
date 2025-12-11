@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import NumberInputForm from "./NumberInputForm";
-import SumDisplay from "./SumDisplay";
+import NumberInputForm from "../NumberInputForm/NumberInputForm";
+import SumDisplay from "../SumDisplay/SumDisplay";
 
 export default function Calculator() {
   const [number, setNumber] = useState<string>("");
