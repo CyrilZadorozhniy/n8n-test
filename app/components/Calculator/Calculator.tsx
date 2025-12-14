@@ -6,12 +6,12 @@ import SumDisplay from "../SumDisplay/SumDisplay";
 
 export default function Calculator() {
   const [number, setNumber] = useState<string>("");
-  const [sum, setSum] = useState<number>(0);
+  const [product, setProduct] = useState<number>(1);
 
   const handleAdd = () => {
     const value = parseFloat(number);
     if (!Number.isNaN(value)) {
-      setSum((prev) => prev + value);
+      setProduct((prev) => prev * value);
       setNumber("");
     }
   };
@@ -24,7 +24,7 @@ export default function Calculator() {
 
       <div className="flex w-full items-center gap-4">
         <NumberInputForm value={number} onChange={setNumber} onAdd={handleAdd} />
-        <SumDisplay sum={sum} />
+        <SumDisplay sum={product} />
       </div>
     </div>
   );
