@@ -8,7 +8,8 @@ describe("Calculator component", () => {
     expect(screen.getByRole("heading", { name: /number calculator/i })).toBeInTheDocument();
     expect(screen.getByRole("spinbutton")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /add/i })).toBeInTheDocument();
-    expect(screen.getByText(/sum:/i)).toBeInTheDocument();
+    // Product starts at 1
+    expect(screen.getByText(/1/)).toBeInTheDocument();
   });
 
   test("updates input value on user change", () => {
@@ -18,28 +19,29 @@ describe("Calculator component", () => {
     expect(input).toHaveValue(15);
   });
 
-  test("adds input number to sum on Add button click and clears input", () => {
+  test("multiplies input number with product on Add button click and clears input", () => {
     render(<Calculator />);
     const input = screen.getByRole("spinbutton");
     const addButton = screen.getByRole("button", { name: /add/i });
 
     fireEvent.change(input, { target: { value: "10" } });
     fireEvent.click(addButton);
-    expect(screen.getByText(/sum: 10/i)).toBeInTheDocument();
+    expect(screen.getByText(/10/)).toBeInTheDocument();
     expect(input).toHaveValue(null);
   });
 
-  test("does not change sum when input is not a valid number", () => {
+  test("does not change product when input is not a valid number", () => {
     render(<Calculator />);
     const input = screen.getByRole("spinbutton");
     const addButton = screen.getByRole("button", { name: /add/i });
 
     fireEvent.change(input, { target: { value: "abc" } });
     fireEvent.click(addButton);
-    expect(screen.getByText(/sum: 0/i)).toBeInTheDocument();
+    // Initial product is 1
+    expect(screen.getByText(/1/)).toBeInTheDocument();
   });
 
-  test("displays correct sum after multiple additions", () => {
+  test("displays correct product after multiple multiplications", () => {
     render(<Calculator />);
     const input = screen.getByRole("spinbutton");
     const addButton = screen.getByRole("button", { name: /add/i });
@@ -49,6 +51,6 @@ describe("Calculator component", () => {
     fireEvent.change(input, { target: { value: "7" } });
     fireEvent.click(addButton);
 
-    expect(screen.getByText(/sum: 12/i)).toBeInTheDocument();
+    expect(screen.getByText(/35/)).toBeInTheDocument();
   });
 });
