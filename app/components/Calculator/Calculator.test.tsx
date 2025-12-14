@@ -8,8 +8,8 @@ describe("Calculator component", () => {
     expect(screen.getByRole("heading", { name: /number calculator/i })).toBeInTheDocument();
     expect(screen.getByRole("spinbutton")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /add/i })).toBeInTheDocument();
-    // Product starts at 1
-    expect(screen.getByText(/1/)).toBeInTheDocument();
+    // Sum starts at 0
+    expect(screen.getByText(/0/)).toBeInTheDocument();
   });
 
   test("updates input value on user change", () => {
@@ -19,7 +19,7 @@ describe("Calculator component", () => {
     expect(input).toHaveValue(15);
   });
 
-  test("multiplies input number with product on Add button click and clears input", () => {
+  test("adds input number to sum on Add button click and clears input", () => {
     render(<Calculator />);
     const input = screen.getByRole("spinbutton");
     const addButton = screen.getByRole("button", { name: /add/i });
@@ -30,18 +30,18 @@ describe("Calculator component", () => {
     expect(input).toHaveValue(null);
   });
 
-  test("does not change product when input is not a valid number", () => {
+  test("does not change sum when input is not a valid number", () => {
     render(<Calculator />);
     const input = screen.getByRole("spinbutton");
     const addButton = screen.getByRole("button", { name: /add/i });
 
     fireEvent.change(input, { target: { value: "abc" } });
     fireEvent.click(addButton);
-    // Initial product is 1
-    expect(screen.getByText(/1/)).toBeInTheDocument();
+    // Initial sum is 0
+    expect(screen.getByText(/0/)).toBeInTheDocument();
   });
 
-  test("displays correct product after multiple multiplications", () => {
+  test("displays correct sum after multiple additions", () => {
     render(<Calculator />);
     const input = screen.getByRole("spinbutton");
     const addButton = screen.getByRole("button", { name: /add/i });
@@ -51,6 +51,6 @@ describe("Calculator component", () => {
     fireEvent.change(input, { target: { value: "7" } });
     fireEvent.click(addButton);
 
-    expect(screen.getByText(/35/)).toBeInTheDocument();
+    expect(screen.getByText(/12/)).toBeInTheDocument();
   });
 });
