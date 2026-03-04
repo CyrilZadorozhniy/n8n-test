@@ -1,0 +1,1 @@
+- AD-388: Enable drag & drop agents into the chat constructor canvas and manage connected agents lifecycle (PR #14)
